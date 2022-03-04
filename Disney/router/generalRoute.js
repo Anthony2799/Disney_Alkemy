@@ -6,3 +6,5 @@ function darRutas(app){
     app.use('/api/v1',router);
     router.use('/personaje', PersonajeRouter);
 }
+
+module.exports = darRutas;
