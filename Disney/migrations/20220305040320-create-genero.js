@@ -15,7 +15,12 @@ module.exports = {
         type: Sequelize.STRING
       },
       idPeliculaSerie: {
-        type: Sequelize.INTEGER
+        type: Sequelize.INTEGER,
+        onDelete: 'CASCADE',
+        references:{
+          model: 'PeliculaSeries',
+          key: 'id'
+        }
       },
       createdAt: {
         allowNull: false,

@@ -9,17 +9,21 @@ module.exports = (sequelize, DataTypes) => {
      * The `models/index` file will call this method automatically.
      */
     static associate(models) {
-      PeliculaSerie.hasMany(models.Personaje,{
-        foreignKey:'idPeliculaSerie',
-        as:'midTable'
-      });
       //Creamos la conección con la tabla
       PeliculaSerie.hasMany(models.Genero,{
         foreignKey:'idPeliculaSerie',
         //nombre de la tabla en la base de datos pluralisada
         as:'generos'
       });
+    
+      PeliculaSerie.belongsToMany(models.Personaje,{
+        through : "PersonajePeliSerie",
+        as: "personajes",
+        foreignKey: "idPersonaje"
+      })
+    
     }
+
   }
   PeliculaSerie.init({
     imagen: DataTypes.STRING,
