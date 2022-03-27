@@ -4,6 +4,9 @@ const passport = require('passport');
 const session = require('express-session');
 const cookieParser = require('cookie-parser');
 const PassportLocal = require('passport-local').Strategy;
+const bodyParser = require('body-parser');
+const {Bdd} = require('./../models');
+
 
 router.use(cookieParser('Secreto'));
 router.use(session({
@@ -11,10 +14,13 @@ router.use(session({
     resave: true,
     saveUninitialized: true
 }));
+
+
 router.use(passport.initialize());
 router.use(passport.session());
 passport.use(new PassportLocal(function (username,password,done){
-//base de datos, para validar la info
+let conexion = Bdd.initialize;
+
 if(username === 'anthony@hotmail.com' && password === '123' ){
     return done(null,{id : 1,user: 'Anthony'});
 }
@@ -32,9 +38,6 @@ passport.deserializeUser(function(id,done){
 })
 
 router.get('/', (req, res)=>{
-    //Esto verifica si esta logeado o no, si esta logeado lo manda al home
-    
-    // si no esta logeado lo manda al inicio de sesion
     res.send('aloo');
 });
 
